@@ -1,9 +1,9 @@
 package com.lynx.apigateway.service.stub;
 
-import com.lynx.apigateway.api.dto.request.LoginRequest;
-import com.lynx.apigateway.api.dto.request.RegisterRequest;
-import com.lynx.apigateway.api.dto.response.AuthResponse;
-import com.lynx.apigateway.api.dto.response.UserDto;
+import com.lynx.apigateway.dto.request.LoginRequest;
+import com.lynx.apigateway.dto.request.RegisterRequest;
+import com.lynx.apigateway.dto.response.AuthResponse;
+import com.lynx.apigateway.dto.response.UserDto;
 import com.lynx.apigateway.error.UnauthorizedException;
 import com.lynx.apigateway.service.AuthFacade;
 import com.lynx.apigateway.security.JwtService;

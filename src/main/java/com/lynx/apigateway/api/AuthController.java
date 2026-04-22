@@ -1,9 +1,9 @@
 package com.lynx.apigateway.api;
 
-import com.lynx.apigateway.api.dto.request.LoginRequest;
-import com.lynx.apigateway.api.dto.request.RegisterRequest;
-import com.lynx.apigateway.api.dto.response.AuthResponse;
-import com.lynx.apigateway.api.dto.response.MessageResponse;
+import com.lynx.apigateway.dto.request.LoginRequest;
+import com.lynx.apigateway.dto.request.RegisterRequest;
+import com.lynx.apigateway.dto.response.AuthResponse;
+import com.lynx.apigateway.dto.response.MessageResponse;
 import com.lynx.apigateway.service.AuthFacade;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

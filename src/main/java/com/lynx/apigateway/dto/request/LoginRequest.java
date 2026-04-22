@@ -1,4 +1,4 @@
-package com.lynx.apigateway.api.dto.request;
+package com.lynx.apigateway.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
