@@ -1,4 +1,6 @@
-package com.lynx.apigateway.dto.response;
+package com.lynx.apigateway.dto.wallet;
+
+import com.lynx.apigateway.dto.response.PaginationDto;
 
 import java.util.List;
 

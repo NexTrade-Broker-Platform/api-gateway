@@ -1,16 +1,16 @@
 package com.lynx.apigateway.service;
 
-import com.lynx.apigateway.dto.request.DepositRequest;
-import com.lynx.apigateway.dto.request.WithdrawRequest;
-import com.lynx.apigateway.dto.response.DepositResponse;
-import com.lynx.apigateway.dto.response.WalletBalanceResponse;
-import com.lynx.apigateway.dto.response.WalletTransactionsPageResponse;
+import com.lynx.apigateway.dto.wallet.DepositRequest;
+import com.lynx.apigateway.dto.wallet.WithdrawRequest;
+import com.lynx.apigateway.dto.wallet.DepositResponse;
+import com.lynx.apigateway.dto.wallet.WalletBalanceResponse;
+import com.lynx.apigateway.dto.wallet.WithdrawResponse;
 
 import java.util.UUID;
 
 public interface WalletFacade {
     DepositResponse deposit(UUID userId, DepositRequest request);
-    DepositResponse withdraw(UUID userId, WithdrawRequest request);
+    WithdrawResponse withdraw(UUID userId, WithdrawRequest request);
     WalletBalanceResponse getBalance(UUID userId, String currency);
-    WalletTransactionsPageResponse getTransactions(UUID userId, int page, int limit);
+//    WalletTransactionsPageResponse getTransactions(UUID userId, int page, int limit);
 }

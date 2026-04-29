@@ -2,41 +2,22 @@ package com.lynx.apigateway.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.time.Instant;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class JwtService {
 
-    // move to application.yml later
-    private static final String SECRET = "ZmFrZWZha2VmYWtlZmFrZWZha2VmYWtlZmFrZWZha2VmYWtlZmFrZWZha2U=";
-    private static final long EXPIRATION_SECONDS = 3600;
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
-    }
-
-    public String generateToken(UUID userId, String email, String username) {
-        Instant now = Instant.now();
-
-        return Jwts.builder()
-                .subject(userId.toString())
-                .claims(Map.of(
-                        "email", email,
-                        "username", username,
-                        "role", "USER"
-                ))
-                .issuedAt(Date.from(now))
-                .expiration(Date.from(now.plusSeconds(EXPIRATION_SECONDS)))
-                .signWith(getSigningKey())
-                .compact();
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String extractUserId(String token) {
