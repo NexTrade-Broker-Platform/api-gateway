@@ -30,6 +30,7 @@ public record UserDto(
         LocalDateTime createdAt,
 
         @JsonProperty("active")
+        @JsonAlias({"active"})
         boolean active,
 
         @JsonProperty("isAdmin")
