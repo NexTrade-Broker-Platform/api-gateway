@@ -2,12 +2,7 @@ package com.lynx.apigateway.service.stub;
 
 import com.lynx.apigateway.dto.request.DepositRequest;
 import com.lynx.apigateway.dto.request.WithdrawRequest;
-import com.lynx.apigateway.dto.response.DepositResponse;
-import com.lynx.apigateway.dto.response.PaginationDto;
-import com.lynx.apigateway.dto.response.WalletBalanceResponse;
-import com.lynx.apigateway.dto.response.WalletDto;
-import com.lynx.apigateway.dto.response.WalletTransactionDto;
-import com.lynx.apigateway.dto.response.WalletTransactionsPageResponse;
+import com.lynx.apigateway.dto.response.*;
 import com.lynx.apigateway.error.InsufficientFundsException;
 import com.lynx.apigateway.service.WalletFacade;
 import org.springframework.stereotype.Service;
@@ -17,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Service
 public class StubWalletFacade implements WalletFacade {
 
     private static final UUID WALLET_ID = UUID.fromString("880e8400-e29b-41d4-a716-446655440111");
@@ -53,7 +47,7 @@ public class StubWalletFacade implements WalletFacade {
     }
 
     @Override
-    public DepositResponse withdraw(UUID userId, WithdrawRequest request) {
+    public WithdrawResponse withdraw(UUID userId, WithdrawRequest request) {
         if (request.amount().compareTo(AVAILABLE_BALANCE) > 0) {
             throw new InsufficientFundsException("Not enough available balance to withdraw.");
         }
@@ -81,7 +75,7 @@ public class StubWalletFacade implements WalletFacade {
                 now
         );
 
-        return new DepositResponse("Withdrawal successful", wallet, transaction);
+        return new WithdrawResponse("Withdrawal successful", wallet, transaction);
     }
 
     @Override
@@ -102,56 +96,56 @@ public class StubWalletFacade implements WalletFacade {
         return new WalletBalanceResponse(wallet);
     }
 
-    @Override
-    public WalletTransactionsPageResponse getTransactions(UUID userId, int page, int limit) {
-        List<WalletTransactionDto> allTransactions = List.of(
-                new WalletTransactionDto(
-                        UUID.fromString("123e4567-e89b-12d3-a456-426614174000"),
-                        WALLET_ID,
-                        null,
-                        "DEPOSIT",
-                        new BigDecimal("1500.00"),
-                        LocalDateTime.of(2026, 4, 16, 15, 45, 0)
-                ),
-                new WalletTransactionDto(
-                        UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
-                        WALLET_ID,
-                        null,
-                        "WITHDRAWAL",
-                        new BigDecimal("200.00"),
-                        LocalDateTime.of(2026, 4, 17, 11, 30, 0)
-                ),
-                new WalletTransactionDto(
-                        UUID.fromString("323e4567-e89b-12d3-a456-426614174000"),
-                        WALLET_ID,
-                        UUID.fromString("999e4567-e89b-12d3-a456-426614174999"),
-                        "ORDER_HOLD",
-                        new BigDecimal("500.00"),
-                        LocalDateTime.of(2026, 4, 18, 10, 15, 0)
-                )
-        );
-
-        int totalRecords = allTransactions.size();
-        int totalPages = (int) Math.ceil((double) totalRecords / limit);
-
-        int fromIndex = page * limit;
-        int toIndex = Math.min(fromIndex + limit, totalRecords);
-
-        List<WalletTransactionDto> pageContent;
-
-        if (fromIndex >= totalRecords) {
-            pageContent = List.of();
-        } else {
-            pageContent = allTransactions.subList(fromIndex, toIndex);
-        }
-
-        PaginationDto pagination = new PaginationDto(
-                totalRecords,
-                page,
-                totalPages,
-                limit
-        );
-
-        return new WalletTransactionsPageResponse(pageContent, pagination);
-    }
+//    @Override
+//    public WalletTransactionsPageResponse getTransactions(UUID userId, int page, int limit) {
+//        List<WalletTransactionDto> allTransactions = List.of(
+//                new WalletTransactionDto(
+//                        UUID.fromString("123e4567-e89b-12d3-a456-426614174000"),
+//                        WALLET_ID,
+//                        null,
+//                        "DEPOSIT",
+//                        new BigDecimal("1500.00"),
+//                        LocalDateTime.of(2026, 4, 16, 15, 45, 0)
+//                ),
+//                new WalletTransactionDto(
+//                        UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
+//                        WALLET_ID,
+//                        null,
+//                        "WITHDRAWAL",
+//                        new BigDecimal("200.00"),
+//                        LocalDateTime.of(2026, 4, 17, 11, 30, 0)
+//                ),
+//                new WalletTransactionDto(
+//                        UUID.fromString("323e4567-e89b-12d3-a456-426614174000"),
+//                        WALLET_ID,
+//                        UUID.fromString("999e4567-e89b-12d3-a456-426614174999"),
+//                        "ORDER_HOLD",
+//                        new BigDecimal("500.00"),
+//                        LocalDateTime.of(2026, 4, 18, 10, 15, 0)
+//                )
+//        );
+//
+//        int totalRecords = allTransactions.size();
+//        int totalPages = (int) Math.ceil((double) totalRecords / limit);
+//
+//        int fromIndex = page * limit;
+//        int toIndex = Math.min(fromIndex + limit, totalRecords);
+//
+//        List<WalletTransactionDto> pageContent;
+//
+//        if (fromIndex >= totalRecords) {
+//            pageContent = List.of();
+//        } else {
+//            pageContent = allTransactions.subList(fromIndex, toIndex);
+//        }
+//
+//        PaginationDto pagination = new PaginationDto(
+//                totalRecords,
+//                page,
+//                totalPages,
+//                limit
+//        );
+//
+//        return new WalletTransactionsPageResponse(pageContent, pagination);
+//    }
 }
