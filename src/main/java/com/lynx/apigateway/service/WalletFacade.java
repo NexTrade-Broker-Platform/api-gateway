@@ -1,10 +1,10 @@
 package com.lynx.apigateway.service;
 
-import com.lynx.apigateway.dto.request.DepositRequest;
-import com.lynx.apigateway.dto.request.WithdrawRequest;
-import com.lynx.apigateway.dto.response.DepositResponse;
-import com.lynx.apigateway.dto.response.WalletBalanceResponse;
-import com.lynx.apigateway.dto.response.WithdrawResponse;
+import com.lynx.apigateway.dto.wallet.DepositRequest;
+import com.lynx.apigateway.dto.wallet.WithdrawRequest;
+import com.lynx.apigateway.dto.wallet.DepositResponse;
+import com.lynx.apigateway.dto.wallet.WalletBalanceResponse;
+import com.lynx.apigateway.dto.wallet.WithdrawResponse;
 
 import java.util.UUID;
 

@@ -1,13 +1,10 @@
-package com.lynx.apigateway.dto.response;
+package com.lynx.apigateway.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record AuthResponse(
+public record AuthServiceResponse(
         @JsonProperty("message")
         String message,
-
-        @JsonProperty("token")
-        String token,
 
         @JsonProperty("user")
         UserDto user

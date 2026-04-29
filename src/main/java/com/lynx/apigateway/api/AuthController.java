@@ -1,12 +1,14 @@
 package com.lynx.apigateway.api;
 
-import com.lynx.apigateway.dto.request.LoginRequest;
-import com.lynx.apigateway.dto.request.RegisterRequest;
-import com.lynx.apigateway.dto.response.AuthResponse;
-import com.lynx.apigateway.dto.response.MessageResponse;
+import com.lynx.apigateway.dto.auth.AuthResponse;
+import com.lynx.apigateway.dto.auth.LoginRequest;
+import com.lynx.apigateway.dto.auth.MessageResponse;
+import com.lynx.apigateway.dto.auth.RegisterRequest;
+import com.lynx.apigateway.dto.auth.UserDto;
 import com.lynx.apigateway.service.AuthFacade;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,16 +24,21 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(authFacade.register(request));
+        return authFacade.register(request);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-        return ResponseEntity.ok(authFacade.login(request));
+        return authFacade.login(request);
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<MessageResponse> logout() {
-        return ResponseEntity.ok(new MessageResponse("User logged out successfully"));
+    public ResponseEntity<MessageResponse> logout(HttpServletRequest request) {
+        return authFacade.logout(request.getHeader(HttpHeaders.COOKIE));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> me(HttpServletRequest request) {
+        return authFacade.me(request.getHeader(HttpHeaders.COOKIE));
     }
 }

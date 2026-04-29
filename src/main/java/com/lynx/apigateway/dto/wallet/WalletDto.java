@@ -1,4 +1,4 @@
-package com.lynx.apigateway.dto.response;
+package com.lynx.apigateway.dto.wallet;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

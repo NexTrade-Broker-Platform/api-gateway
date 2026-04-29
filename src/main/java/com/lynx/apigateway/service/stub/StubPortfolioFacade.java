@@ -1,6 +1,6 @@
 package com.lynx.apigateway.service.stub;
 
-import com.lynx.apigateway.dto.response.CashBalanceDto;
+import com.lynx.apigateway.dto.wallet.CashBalanceDto;
 import com.lynx.apigateway.dto.response.HoldingDto;
 import com.lynx.apigateway.dto.response.PortfolioResponse;
 import com.lynx.apigateway.service.PortfolioFacade;

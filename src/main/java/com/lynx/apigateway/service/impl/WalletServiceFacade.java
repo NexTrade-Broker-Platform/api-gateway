@@ -1,11 +1,11 @@
-package com.lynx.apigateway.service.http;
+package com.lynx.apigateway.service.impl;
 
-import com.lynx.apigateway.dto.request.DepositRequest;
-import com.lynx.apigateway.dto.request.WithdrawRequest;
-import com.lynx.apigateway.dto.response.DepositResponse;
-import com.lynx.apigateway.dto.response.WalletBalanceResponse;
-import com.lynx.apigateway.dto.response.WalletDto;
-import com.lynx.apigateway.dto.response.WithdrawResponse;
+import com.lynx.apigateway.dto.wallet.DepositRequest;
+import com.lynx.apigateway.dto.wallet.WithdrawRequest;
+import com.lynx.apigateway.dto.wallet.DepositResponse;
+import com.lynx.apigateway.dto.wallet.WalletBalanceResponse;
+import com.lynx.apigateway.dto.wallet.WalletDto;
+import com.lynx.apigateway.dto.wallet.WithdrawResponse;
 import com.lynx.apigateway.service.WalletFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class WalletHttpFacade implements WalletFacade {
+public class WalletServiceFacade implements WalletFacade {
 
     private final RestClient.Builder restClientBuilder;
 
