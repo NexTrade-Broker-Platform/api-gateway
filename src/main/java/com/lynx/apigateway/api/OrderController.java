@@ -1,9 +1,9 @@
 package com.lynx.apigateway.api;
 
-import com.lynx.apigateway.dto.request.PlaceOrderRequest;
-import com.lynx.apigateway.dto.response.CancelOrderResponse;
-import com.lynx.apigateway.dto.response.OrderHistoryResponse;
-import com.lynx.apigateway.dto.response.PlaceOrderResponse;
+import com.lynx.apigateway.dto.order.PlaceOrderRequest;
+import com.lynx.apigateway.dto.order.CancelOrderResponse;
+import com.lynx.apigateway.dto.order.OrderHistoryResponse;
+import com.lynx.apigateway.dto.order.PlaceOrderResponse;
 import com.lynx.apigateway.service.OrderFacade;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
