@@ -1,4 +1,4 @@
-package com.lynx.apigateway.dto.response;
+package com.lynx.apigateway.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

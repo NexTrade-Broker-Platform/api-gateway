@@ -1,6 +1,6 @@
 package com.lynx.apigateway.service.stub;
 
-import com.lynx.apigateway.dto.response.CandleDto;
+import com.lynx.apigateway.dto.order.CandleDto;
 import com.lynx.apigateway.dto.response.StockDetailsResponse;
 import com.lynx.apigateway.dto.response.StockDto;
 import com.lynx.apigateway.dto.response.StockListResponse;

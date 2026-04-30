@@ -1,12 +1,12 @@
-package com.lynx.apigateway.dto.response;
+package com.lynx.apigateway.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record CancelOrderResponse(
+public record PlaceOrderResponse(
         @JsonProperty("message")
         String message,
 
         @JsonProperty("order")
-        CancelOrderDto order
+        OrderDto order
 ) {
 }

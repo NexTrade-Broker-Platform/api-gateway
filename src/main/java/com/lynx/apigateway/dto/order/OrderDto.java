@@ -1,4 +1,4 @@
-package com.lynx.apigateway.dto.response;
+package com.lynx.apigateway.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -28,7 +28,7 @@ public record OrderDto(
         String side,
 
         @JsonProperty("quantity")
-        Integer quantity,
+        BigDecimal quantity,
 
         @JsonProperty("limit_price")
         BigDecimal limitPrice,
@@ -37,7 +37,7 @@ public record OrderDto(
         String status,
 
         @JsonProperty("filled_quantity")
-        Integer filledQuantity,
+        BigDecimal filledQuantity,
 
         @JsonProperty("average_fill_price")
         BigDecimal averageFillPrice,

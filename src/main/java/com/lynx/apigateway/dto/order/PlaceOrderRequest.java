@@ -1,4 +1,4 @@
-package com.lynx.apigateway.dto.request;
+package com.lynx.apigateway.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;
