@@ -8,13 +8,13 @@ public record HoldingDto(
         @JsonProperty("ticker")
         String ticker,
 
-        @JsonProperty("instrument_type")
+        @JsonProperty("instrumentType")
         String instrumentType,
 
         @JsonProperty("quantity")
         int quantity,
 
-        @JsonProperty("average_cost")
+        @JsonProperty("averageCost")
         BigDecimal averageCost
 ) {
 }

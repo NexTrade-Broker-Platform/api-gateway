@@ -65,49 +65,80 @@ public class StubMarketFacade implements MarketFacade {
 
     @Override
     public StockDetailsResponse getStockByTicker(String ticker) {
-        if (!"ARKA".equalsIgnoreCase(ticker)) {
+        if ("ARKA".equalsIgnoreCase(ticker)) {
+            StockDto stock = new StockDto(
+                    "ARKA",
+                    "Arkadia Technologies",
+                    "Tech",
+                    new BigDecimal("142.50"),
+                    new BigDecimal("140.00"),
+                    new BigDecimal("145.20"),
+                    new BigDecimal("139.50"),
+                    1_250_400L,
+                    LocalDateTime.of(2026, 4, 10, 9, 0, 0)
+            );
+
+            List<CandleDto> chartData = List.of(
+                    new CandleDto(
+                            LocalDateTime.of(2026, 4, 21, 9, 30, 0),
+                            new BigDecimal("140.00"),
+                            new BigDecimal("141.50"),
+                            new BigDecimal("139.50"),
+                            new BigDecimal("141.00"),
+                            150_000L
+                    ),
+                    new CandleDto(
+                            LocalDateTime.of(2026, 4, 21, 10, 0, 0),
+                            new BigDecimal("141.00"),
+                            new BigDecimal("142.20"),
+                            new BigDecimal("140.80"),
+                            new BigDecimal("142.00"),
+                            220_000L
+                    ),
+                    new CandleDto(
+                            LocalDateTime.of(2026, 4, 21, 10, 30, 0),
+                            new BigDecimal("142.00"),
+                            new BigDecimal("145.20"),
+                            new BigDecimal("141.50"),
+                            new BigDecimal("142.50"),
+                            310_400L
+                    )
+            );
+            return new StockDetailsResponse(stock, chartData);
+        } else if ("NXGY".equalsIgnoreCase(ticker) || "NGXY".equalsIgnoreCase(ticker)) {
+            StockDto stock = new StockDto(
+                    "NXGY",
+                    "NextGen Energy",
+                    "Energy",
+                    new BigDecimal("45.20"),
+                    new BigDecimal("46.10"),
+                    new BigDecimal("46.50"),
+                    new BigDecimal("44.80"),
+                    890_000L,
+                    LocalDateTime.of(2026, 4, 12, 9, 0, 0)
+            );
+
+            List<CandleDto> chartData = List.of(
+                    new CandleDto(
+                            LocalDateTime.of(2026, 4, 21, 9, 30, 0),
+                            new BigDecimal("44.80"),
+                            new BigDecimal("45.50"),
+                            new BigDecimal("44.50"),
+                            new BigDecimal("45.00"),
+                            100_000L
+                    ),
+                    new CandleDto(
+                            LocalDateTime.of(2026, 4, 21, 10, 0, 0),
+                            new BigDecimal("45.00"),
+                            new BigDecimal("46.10"),
+                            new BigDecimal("44.80"),
+                            new BigDecimal("45.20"),
+                            150_000L
+                    )
+            );
+            return new StockDetailsResponse(stock, chartData);
+        } else {
             throw new NotFoundException("Stock ticker " + ticker + " not found.");
         }
-
-        StockDto stock = new StockDto(
-                "ARKA",
-                "Arkadia Technologies",
-                "Tech",
-                new BigDecimal("142.50"),
-                new BigDecimal("140.00"),
-                new BigDecimal("145.20"),
-                new BigDecimal("139.50"),
-                1_250_400L,
-                LocalDateTime.of(2026, 4, 10, 9, 0, 0)
-        );
-
-        List<CandleDto> chartData = List.of(
-                new CandleDto(
-                        LocalDateTime.of(2026, 4, 21, 9, 30, 0),
-                        new BigDecimal("140.00"),
-                        new BigDecimal("141.50"),
-                        new BigDecimal("139.50"),
-                        new BigDecimal("141.00"),
-                        150_000L
-                ),
-                new CandleDto(
-                        LocalDateTime.of(2026, 4, 21, 10, 0, 0),
-                        new BigDecimal("141.00"),
-                        new BigDecimal("142.20"),
-                        new BigDecimal("140.80"),
-                        new BigDecimal("142.00"),
-                        220_000L
-                ),
-                new CandleDto(
-                        LocalDateTime.of(2026, 4, 21, 10, 30, 0),
-                        new BigDecimal("142.00"),
-                        new BigDecimal("145.20"),
-                        new BigDecimal("141.50"),
-                        new BigDecimal("142.50"),
-                        310_400L
-                )
-        );
-
-        return new StockDetailsResponse(stock, chartData);
     }
 }
