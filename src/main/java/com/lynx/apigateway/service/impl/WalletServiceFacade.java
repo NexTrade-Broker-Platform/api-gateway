@@ -7,7 +7,6 @@ import com.lynx.apigateway.dto.wallet.WalletBalanceResponse;
 import com.lynx.apigateway.dto.wallet.WalletDto;
 import com.lynx.apigateway.dto.wallet.WithdrawResponse;
 import com.lynx.apigateway.service.WalletFacade;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -15,13 +14,19 @@ import org.springframework.web.client.RestClient;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class WalletServiceFacade implements WalletFacade {
 
     private final RestClient.Builder restClientBuilder;
 
-    @Value("${services.wallet.url}")
-    private String walletServiceUrl;
+    private final String walletServiceUrl;
+
+    public WalletServiceFacade(
+            RestClient.Builder restClientBuilder,
+            @Value("${services.wallet.url}") String walletServiceUrl
+    ) {
+        this.restClientBuilder = restClientBuilder;
+        this.walletServiceUrl = walletServiceUrl;
+    }
 
     @Override
     public DepositResponse deposit(UUID userId, DepositRequest request) {

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +25,6 @@ public class PortfolioServiceFacade implements PortfolioFacade {
     public PortfolioServiceFacade(
             RestClient.Builder restClientBuilder,
             @Value("${services.portfolio.url}")String portfolioServiceUrl,
-            ObjectMapper objectMapper,
             WalletFacade walletFacade
     ){
         this.restClient = restClientBuilder.build();
@@ -41,6 +39,10 @@ public class PortfolioServiceFacade implements PortfolioFacade {
                 .header("X-User-Id", userId.toString())
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {});
+
+        if (holdings == null) {
+            holdings = List.of();
+        }
 
         for (HoldingDto holding : holdings)
             System.out.println(holding.averageCost() + "," + holding.quantity());

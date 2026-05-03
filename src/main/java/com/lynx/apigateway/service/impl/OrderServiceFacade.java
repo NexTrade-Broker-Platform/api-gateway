@@ -14,7 +14,9 @@ import org.springframework.web.client.RestClient;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -93,8 +95,7 @@ public class OrderServiceFacade implements OrderFacade {
                 .retrieve()
                 .body(OrderServiceOrderResponse[].class);
 
-        List<OrderDto> filtered = List.of(orders == null ? new OrderServiceOrderResponse[0] : orders)
-                .stream()
+        List<OrderDto> filtered = Arrays.stream(orders == null ? new OrderServiceOrderResponse[0] : orders)
                 .filter(order -> status == null || order.status().equalsIgnoreCase(status))
                 .map(this::toOrderDto)
                 .toList();
@@ -126,7 +127,11 @@ public class OrderServiceFacade implements OrderFacade {
                 })
                 .body(OrderServiceOrderResponse.class);
 
-        if (!order.platformUserId().equals(userId)) {
+        OrderServiceOrderResponse nonNullOrder = Objects.requireNonNull(
+                order,
+                "Order Service returned no order data."
+        );
+        if (!userId.equals(nonNullOrder.platformUserId())) {
             throw new ForbiddenException("You do not have permission to modify this resource.");
         }
 
