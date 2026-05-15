@@ -3,11 +3,10 @@ package com.lynx.apigateway.dto.order;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public record CandleDto(
         @JsonProperty("timestamp")
-        LocalDateTime timestamp,
+        String timestamp,
 
         @JsonProperty("open")
         BigDecimal open,

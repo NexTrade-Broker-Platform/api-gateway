@@ -1,5 +1,7 @@
 package com.lynx.apigateway.api;
 
+import com.lynx.apigateway.dto.response.MarketEventsResponse;
+import com.lynx.apigateway.dto.response.OptionsListResponse;
 import com.lynx.apigateway.dto.response.StockDetailsResponse;
 import com.lynx.apigateway.dto.response.StockListResponse;
 import com.lynx.apigateway.service.MarketFacade;
@@ -28,5 +30,15 @@ public class MarketController {
     @GetMapping("/stocks/{ticker}")
     public ResponseEntity<StockDetailsResponse> getStockByTicker(@PathVariable String ticker) {
         return ResponseEntity.ok(marketFacade.getStockByTicker(ticker));
+    }
+
+    @GetMapping("/options")
+    public ResponseEntity<OptionsListResponse> getOptions() {
+        return ResponseEntity.ok(marketFacade.getOptions());
+    }
+
+    @GetMapping("/events")
+    public ResponseEntity<MarketEventsResponse> getMarketEvents() {
+        return ResponseEntity.ok(marketFacade.getMarketEvents());
     }
 }

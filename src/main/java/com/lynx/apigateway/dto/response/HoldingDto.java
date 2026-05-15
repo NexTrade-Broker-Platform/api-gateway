@@ -12,7 +12,7 @@ public record HoldingDto(
         String instrumentType,
 
         @JsonProperty("quantity")
-        int quantity,
+        BigDecimal quantity,
 
         @JsonProperty("averageCost")
         BigDecimal averageCost
