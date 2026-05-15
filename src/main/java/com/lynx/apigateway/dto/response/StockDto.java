@@ -3,7 +3,6 @@ package com.lynx.apigateway.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public record StockDto(
         @JsonProperty("ticker")
@@ -31,6 +30,6 @@ public record StockDto(
         Long volume,
 
         @JsonProperty("listed_at")
-        LocalDateTime listedAt
+        String listedAt
 ) {
 }
