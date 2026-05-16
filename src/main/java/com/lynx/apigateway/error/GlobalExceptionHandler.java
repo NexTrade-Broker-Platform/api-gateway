@@ -1,17 +1,28 @@
 package com.lynx.apigateway.error;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private final ObjectMapper objectMapper;
+
+    public GlobalExceptionHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
@@ -52,6 +63,29 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, "INSUFFICIENT_FUNDS", ex.getMessage(), Map.of());
     }
 
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<?> handleResponseStatus(ResponseStatusException ex) {
+        String reason = ex.getReason();
+
+        if (reason != null && !reason.isBlank()) {
+            try {
+                Map<String, Object> body = objectMapper.readValue(reason, new TypeReference<>() {});
+                return ResponseEntity.status(ex.getStatusCode())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(body);
+            } catch (Exception ignored) {
+                return build(
+                        ex.getStatusCode(),
+                        ex.getStatusCode().is4xxClientError() ? "BAD_REQUEST" : "DOWNSTREAM_ERROR",
+                        reason,
+                        Map.of()
+                );
+            }
+        }
+
+        return build(ex.getStatusCode(), "DOWNSTREAM_ERROR", "Upstream request failed.", Map.of());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR", "Something went wrong on the server.", Map.of());
@@ -59,6 +93,17 @@ public class GlobalExceptionHandler {
 
     private ResponseEntity<Map<String, Object>> build(
             HttpStatus status,
+            String code,
+            String message,
+            Map<String, String> details
+    ) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", new ErrorResponse(code, message, details));
+        return ResponseEntity.status(status).body(body);
+    }
+
+    private ResponseEntity<Map<String, Object>> build(
+            HttpStatusCode status,
             String code,
             String message,
             Map<String, String> details
